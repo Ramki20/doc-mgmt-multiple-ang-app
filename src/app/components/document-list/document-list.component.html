@@ -1,0 +1,63 @@
+<!-- src/app/components/document-list/document-list.component.html -->
+<div class="document-list-container">
+  <div class="document-list-header">
+    <h2>My Documents</h2>
+    <button class="refresh-button" (click)="refreshDocuments()" [disabled]="isLoading">
+      <span class="material-icons">refresh</span>
+      <span *ngIf="!isLoading">Refresh</span>
+      <span *ngIf="isLoading">Loading...</span>
+    </button>
+  </div>
+  
+  <div class="loading-indicator" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading documents...</p>
+  </div>
+  
+  <div class="error-message" *ngIf="error">
+    <p>{{ error }}</p>
+  </div>
+  
+  <div class="empty-state" *ngIf="!isLoading && !error && documents.length === 0">
+    <div class="empty-icon">
+      <span class="material-icons">folder_open</span>
+    </div>
+    <p>No documents found. Upload your first document above.</p>
+  </div>
+  
+  <div class="documents-table-container" *ngIf="!isLoading && !error && documents.length > 0">
+    <table class="documents-table">
+      <thead>
+        <tr>
+          <th class="type-column"></th>
+          <th class="name-column" (click)="toggleSort('fileName')">
+            File Name <span class="sort-indicator">{{ getSortIndicator('fileName') }}</span>
+          </th>
+          <th class="size-column" (click)="toggleSort('size')">
+            Size <span class="sort-indicator">{{ getSortIndicator('size') }}</span>
+          </th>
+          <th class="date-column" (click)="toggleSort('lastModified')">
+            Last Modified <span class="sort-indicator">{{ getSortIndicator('lastModified') }}</span>
+          </th>
+          <th class="actions-column"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let doc of documents" class="document-row">
+          <td class="type-column">
+            <span class="material-icons document-icon">{{ getFileIcon(doc.fileName) }}</span>
+          </td>
+          <td class="name-column">{{ doc.fileName }}</td>
+          <td class="size-column">{{ formatFileSize(doc.size) }}</td>
+          <td class="date-column">{{ doc.lastModified | date:'medium' }}</td>
+          <td class="actions-column">
+            <button class="download-button" (click)="downloadDocument(doc)">
+              <span class="material-icons">download</span>
+              Download
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+/* src/app/app.component.scss */
+:host {
+    display: block;
+    height: 100%;
+  }
+  
+  .app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .app-header {
+    background-color: #4285f4;
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      
+      h1 {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  .app-content {
+    flex: 1;
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 20px;
+  }
+  
+  .app-footer {
+    background-color: #343a40;
+    color: #a7a7a7;
+    padding: 1rem 0;
+    margin-top: 3rem;
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      
+      p {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+    }
+  }

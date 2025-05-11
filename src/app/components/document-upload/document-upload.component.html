@@ -1,0 +1,51 @@
+<!-- src/app/components/document-upload/document-upload.component.html -->
+<div class="upload-container">
+    <h2>Upload Document</h2>
+    
+    <div class="file-input-container">
+      <input 
+        type="file" 
+        id="fileInput" 
+        (change)="onFileSelected($event)" 
+        [disabled]="isUploading"
+        accept=".docx,.pdf,.jpg,.png,.jpeg,.txt,.xlsx"
+      >
+      <label for="fileInput" class="file-input-label">
+        <span *ngIf="!selectedFile">Choose File</span>
+        <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
+      </label>
+    </div>
+    
+    <div class="file-details" *ngIf="selectedFile">
+      <p>
+        <strong>File name:</strong> {{ selectedFile.name }}<br>
+        <strong>File size:</strong> {{ (selectedFile.size / 1024).toFixed(2) }} KB<br>
+        <strong>File type:</strong> {{ selectedFile.type }}
+      </p>
+    </div>
+    
+    <div class="progress-container" *ngIf="isUploading">
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="uploadProgress"></div>
+      </div>
+      <span class="progress-text">{{ uploadProgress }}%</span>
+    </div>
+    
+    <div class="message-container">
+      <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+      <p class="success-message" *ngIf="successMessage">{{ successMessage }}</p>
+    </div>
+    
+    <button 
+      class="upload-button" 
+      (click)="uploadFile()" 
+      [disabled]="!selectedFile || isUploading"
+    >
+      <span *ngIf="!isUploading">Upload</span>
+      <span *ngIf="isUploading">Uploading...</span>
+    </button>
+    
+    <div class="file-types">
+      <p>Supported file types: {{ allowedFileTypes.join(', ') }}</p>
+    </div>
+  </div>
